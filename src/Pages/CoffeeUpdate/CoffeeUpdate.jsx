@@ -1,7 +1,12 @@
+import { BsArrowLeft } from "react-icons/bs";
+import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const AddCoffee = () => {
-  const handleSubmit = (e) => {
+const CoffeeUpdate = () => {
+  const coffee = useLoaderData();
+  const { _id, name, chef, supplier, taste, category, details, photo, price } =
+    coffee || {};
+  const handleUpdate = (e) => {
     e.preventDefault();
 
     const form = e.target;
@@ -15,7 +20,7 @@ const AddCoffee = () => {
     const photo = form.photo.value;
     const price = form.price.value;
 
-    const newCoffee = {
+    const updatedCoffee = {
       name,
       chef,
       supplier,
@@ -26,41 +31,37 @@ const AddCoffee = () => {
       price,
     };
 
-    fetch("http://localhost:5000/coffee", {
-      method: "POST",
+    fetch(` http://localhost:5000/coffee/${_id}`, {
+      method: "PUT",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(newCoffee),
+      body: JSON.stringify(updatedCoffee),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        if (data.insertedId) {
-          Swal.fire({
-            title: "Success!",
-            text: "Do you want to continue",
-            icon: "success",
-            confirmButtonText: "ok",
-          });
+        console.log(data)
+        if (data.modifiedCount > 0) {
+          Swal.fire("coffee update successfully");
         }
       });
   };
+
   return (
-    <div className="bg-[#F4F3F0] py-10">
+    <div className="my-6">
+        <button className="text-3xl font-medium text-[#374151] mb-4 flex items-center gap-2 ml-2"> <BsArrowLeft></BsArrowLeft> Back to home</button>
+
+        <div className="bg-[#F4F3F0] py-10">
       <div className="w-1/2 mx-auto text-center">
         <h1 className="text-3xl font-bold text-[#374151] my-4">
-          Add New Coffee
+        Update Existing Coffee Details
         </h1>
-        <p className="text-[#374151]">
-          It is a long established fact that a reader will be distraceted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum is that it has a more-or-less normal distribution of
-          letters, as opposed to using Content here.
+        <p>
+        It is a long established fact that a reader will be distraceted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content here.
         </p>
       </div>
       <div className="w-3/4 mx-auto my-5">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleUpdate}>
           <div className="flex items-center justify-between gap-10 my-2">
             <div className="form-control w-1/2">
               <label className="label">
@@ -68,24 +69,22 @@ const AddCoffee = () => {
               </label>
               <label className="input-group">
                 <input
-                  required
                   type="text"
                   name="name"
-                  placeholder="Enter coffee name"
+                  defaultValue={name}
                   className="input input-bordered w-full"
                 />
               </label>
             </div>
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="font-medium">Chef</span>
+                <span className="text-xl font-medium">Chef</span>
               </label>
               <label className="input-group">
                 <input
-                  required
+                  defaultValue={chef}
                   type="text"
                   name="chef"
-                  placeholder="Enter Coffee chef"
                   className="input input-bordered w-full"
                 />
               </label>
@@ -99,10 +98,9 @@ const AddCoffee = () => {
               </label>
               <label className="input-group">
                 <input
-                  required
                   type="text"
                   name="supplier"
-                  placeholder="Enter coffee Supplier"
+                  defaultValue={supplier}
                   className="input input-bordered w-full"
                 />
               </label>
@@ -113,10 +111,9 @@ const AddCoffee = () => {
               </label>
               <label className="input-group">
                 <input
-                  required
                   type="text"
                   name="taste"
-                  placeholder="Enter Coffee Taste"
+                  defaultValue={taste}
                   className="input input-bordered w-full"
                 />
               </label>
@@ -130,10 +127,9 @@ const AddCoffee = () => {
               </label>
               <label className="input-group">
                 <input
-                  required
                   type="text"
                   name="category"
-                  placeholder="Enter coffee Category"
+                  defaultValue={category}
                   className="input input-bordered w-full"
                 />
               </label>
@@ -144,10 +140,9 @@ const AddCoffee = () => {
               </label>
               <label className="input-group">
                 <input
-                  required
                   type="text"
                   name="details"
-                  placeholder="Enter Coffee Details"
+                  defaultValue={details}
                   className="input input-bordered w-full"
                 />
               </label>
@@ -161,24 +156,22 @@ const AddCoffee = () => {
               </label>
               <label className="input-group">
                 <input
-                  required
                   type="text"
                   name="photo"
-                  placeholder="Enter Photo URL"
+                  defaultValue={photo}
                   className="input input-bordered w-full"
                 />
               </label>
             </div>
             <div className="form-control w-1/2">
               <label className="label">
-                <span className="font-medium">Price</span>
+                <span className="text-xl font-medium">Price</span>
               </label>
               <label className="input-group">
                 <input
-                  required
                   type="text"
                   name="price"
-                  placeholder="Enter Coffee Price"
+                  defaultValue={price}
                   className="input input-bordered w-full"
                 />
               </label>
@@ -188,12 +181,14 @@ const AddCoffee = () => {
           <input
             className=" btn btn-block btn-neutral  mt-8"
             type="submit"
-            value="Add Coffee"
+            value="update"
           />
         </form>
       </div>
     </div>
+    </div>
+    
   );
 };
 
-export default AddCoffee;
+export default CoffeeUpdate;
