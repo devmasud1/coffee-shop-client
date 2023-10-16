@@ -38,12 +38,12 @@ const Coffees = ({ coffee, updateCoffee, setUpdateCoffee }) => {
   return (
     <>
       {updateCoffee ? (
-        <div className="card card-side bg-base-100 shadow-xl">
+        <div className="card card-side bg-base-100 shadow-xl ">
           <figure>
             <img src={photo} alt="Movie" className="w-[300px]" />
           </figure>
           <div className="w-full flex justify-between  gap-8 mx-5 py-3">
-            <div className="space-y-2">
+            <div className="space-y-2 text-lg">
               <h2>
                 <strong>Name:</strong> {name}
               </h2>

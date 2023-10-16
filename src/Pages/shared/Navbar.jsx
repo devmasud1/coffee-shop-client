@@ -40,7 +40,7 @@ const Navbar = () => {
               {navItem}
             </ul>
           </div>
-          <a className=" text-xl">Coffee shop</a>
+          <a className=" text-xl font-bold">Coffee shop</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItem}</ul>

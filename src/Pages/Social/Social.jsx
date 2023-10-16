@@ -11,7 +11,7 @@ const Social = () => {
       ];
   
     return (
-      <div className="my-20">
+      <div className="max-w-[1440px] mx-auto my-20">
         <div className="text-center">
           <h2 className="text-xl font-medium">Follow Us Now</h2>
           <h1 className="text-5xl font-medium">Follow on Instagram</h1>
@@ -21,7 +21,7 @@ const Social = () => {
           {imgLinks.map((imgLink, index) => (
             <div key={index}>
               <img src={imgLink} alt={`Image ${index + 1}`} 
-              className="rounded-lg"/>
+              className="rounded-lg w-full"/>
             </div>
           ))}
         </div>
